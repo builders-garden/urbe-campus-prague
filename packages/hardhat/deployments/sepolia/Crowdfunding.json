@@ -1,0 +1,575 @@
+{
+  "address": "0xFf35Ee2CA6fBB1F178D68e03a12200efA34C9493",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_creator",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_startTime",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_endTime",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_moneyGoal",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "_tokenAddress",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "CampaignEnded",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "CampaignNotEndedOrGoalNotReached",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "CampaignNotStarted",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "EndTimeBeforeStartTime",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "GoalReached",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NoFundsToWithdraw",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "OnlyCreator",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "StartTimeInPast",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "TransferFailed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "ZeroAddress",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "ZeroAmount",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "ZeroGoal",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "CreatorWithdraw",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "donor",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "totalDonations",
+          "type": "uint256"
+        }
+      ],
+      "name": "NewDonation",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "donor",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "totalDonations",
+          "type": "uint256"
+        }
+      ],
+      "name": "Withdrawal",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "creator",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "creatorWithdraw",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "donate",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "donors",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "endTime",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getRemainingGoal",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getRemainingTime",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "isCampaignActive",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "isGoalReached",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "moneyGoal",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "moneyRaised",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "startTime",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "tokenAddress",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "withdrawFunds",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0xa781bfa0ea261d596ab9fb587b112abbad3a13d5e33d8970c7bda74fe2519359",
+  "receipt": {
+    "to": null,
+    "from": "0xfAd3792af909D54927832116101fA909059C680b",
+    "contractAddress": "0xFf35Ee2CA6fBB1F178D68e03a12200efA34C9493",
+    "transactionIndex": 88,
+    "gasUsed": "578622",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x1b122bc01cf487849469170fdc179af512f31da9bb2704cc78ef2c8198099dc4",
+    "transactionHash": "0xa781bfa0ea261d596ab9fb587b112abbad3a13d5e33d8970c7bda74fe2519359",
+    "logs": [],
+    "blockNumber": 8420758,
+    "cumulativeGasUsed": "6537360",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [
+    "0xfAd3792af909D54927832116101fA909059C680b",
+    1748457700,
+    1751136100,
+    100000000,
+    "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238"
+  ],
+  "numDeployments": 1,
+  "solcInputHash": "401059fe1ec911084865ac6f06c39938",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.20+commit.a1b79de6\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_creator\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_startTime\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_endTime\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_moneyGoal\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_tokenAddress\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"CampaignEnded\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CampaignNotEndedOrGoalNotReached\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CampaignNotStarted\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"EndTimeBeforeStartTime\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"GoalReached\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NoFundsToWithdraw\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"OnlyCreator\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"StartTimeInPast\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"TransferFailed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ZeroAddress\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ZeroAmount\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ZeroGoal\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"CreatorWithdraw\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"donor\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"totalDonations\",\"type\":\"uint256\"}],\"name\":\"NewDonation\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"donor\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"totalDonations\",\"type\":\"uint256\"}],\"name\":\"Withdrawal\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"creator\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"creatorWithdraw\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"donate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"donors\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"endTime\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getRemainingGoal\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getRemainingTime\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"isCampaignActive\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"isGoalReached\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"moneyGoal\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"moneyRaised\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"startTime\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"tokenAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"withdrawFunds\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"details\":\"This contract manages a time-bound crowdfunding campaign with withdrawal capabilities\",\"events\":{\"CreatorWithdraw(uint256)\":{\"params\":{\"amount\":\"The amount withdrawn by the creator\"}},\"NewDonation(address,uint256,uint256)\":{\"params\":{\"amount\":\"The amount donated\",\"donor\":\"The address of the donor\",\"totalDonations\":\"The total amount raised after this donation\"}},\"Withdrawal(address,uint256,uint256)\":{\"params\":{\"amount\":\"The amount withdrawn\",\"donor\":\"The address of the donor withdrawing\",\"totalDonations\":\"The total amount raised after withdrawal\"}}},\"kind\":\"dev\",\"methods\":{\"constructor\":{\"params\":{\"_creator\":\"The address of the campaign creator\",\"_endTime\":\"The timestamp when the campaign ends\",\"_moneyGoal\":\"The funding goal for the campaign\",\"_startTime\":\"The timestamp when the campaign starts\",\"_tokenAddress\":\"The address of the ERC20 token to be used\"}},\"creatorWithdraw()\":{\"details\":\"Only callable by creator after campaign ends or goal is reached\"},\"donate(uint256)\":{\"details\":\"Requires the campaign to be active and not exceed the goal\",\"params\":{\"amount\":\"The amount of tokens to donate\"}},\"getRemainingGoal()\":{\"returns\":{\"_0\":\"The amount still needed to reach the funding goal\"}},\"getRemainingTime()\":{\"returns\":{\"_0\":\"The number of seconds remaining, or 0 if campaign has ended\"}},\"isCampaignActive()\":{\"returns\":{\"_0\":\"True if the campaign is active, false otherwise\"}},\"isGoalReached()\":{\"returns\":{\"_0\":\"True if the goal has been reached, false otherwise\"}},\"withdrawFunds()\":{\"details\":\"Only callable by donors who have contributed and before campaign ends\"}},\"title\":\"Crowdfunding\",\"version\":1},\"userdoc\":{\"events\":{\"CreatorWithdraw(uint256)\":{\"notice\":\"Emitted when the creator withdraws the raised funds\"},\"NewDonation(address,uint256,uint256)\":{\"notice\":\"Emitted when a new donation is made\"},\"Withdrawal(address,uint256,uint256)\":{\"notice\":\"Emitted when a donor withdraws their funds\"}},\"kind\":\"user\",\"methods\":{\"constructor\":{\"notice\":\"Constructor to initialize the crowdfunding campaign\"},\"creator()\":{\"notice\":\"The address of the campaign creator\"},\"creatorWithdraw()\":{\"notice\":\"Allows the creator to withdraw all raised funds\"},\"donate(uint256)\":{\"notice\":\"Allows users to donate ERC20 tokens to the campaign\"},\"donors(address)\":{\"notice\":\"Mapping of donor addresses to their donation amounts\"},\"endTime()\":{\"notice\":\"The timestamp when the campaign ends\"},\"getRemainingGoal()\":{\"notice\":\"Returns the remaining amount needed to reach the goal\"},\"getRemainingTime()\":{\"notice\":\"Returns the remaining time until campaign ends\"},\"isCampaignActive()\":{\"notice\":\"Checks if the campaign is currently active\"},\"isGoalReached()\":{\"notice\":\"Checks if the funding goal has been reached\"},\"moneyGoal()\":{\"notice\":\"The funding goal for the campaign\"},\"moneyRaised()\":{\"notice\":\"The total amount of money raised so far\"},\"startTime()\":{\"notice\":\"The timestamp when the campaign starts\"},\"tokenAddress()\":{\"notice\":\"The address of the ERC20 token used for donations\"},\"withdrawFunds()\":{\"notice\":\"Allows donors to withdraw their funds before the campaign ends\"}},\"notice\":\"A crowdfunding contract that allows users to donate ERC20 tokens to reach a funding goal\",\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/Crowdfunding.sol\":\"Crowdfunding\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"@openzeppelin/contracts/token/ERC20/IERC20.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.0) (token/ERC20/IERC20.sol)\\n\\npragma solidity ^0.8.20;\\n\\n/**\\n * @dev Interface of the ERC20 standard as defined in the EIP.\\n */\\ninterface IERC20 {\\n    /**\\n     * @dev Emitted when `value` tokens are moved from one account (`from`) to\\n     * another (`to`).\\n     *\\n     * Note that `value` may be zero.\\n     */\\n    event Transfer(address indexed from, address indexed to, uint256 value);\\n\\n    /**\\n     * @dev Emitted when the allowance of a `spender` for an `owner` is set by\\n     * a call to {approve}. `value` is the new allowance.\\n     */\\n    event Approval(address indexed owner, address indexed spender, uint256 value);\\n\\n    /**\\n     * @dev Returns the value of tokens in existence.\\n     */\\n    function totalSupply() external view returns (uint256);\\n\\n    /**\\n     * @dev Returns the value of tokens owned by `account`.\\n     */\\n    function balanceOf(address account) external view returns (uint256);\\n\\n    /**\\n     * @dev Moves a `value` amount of tokens from the caller's account to `to`.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function transfer(address to, uint256 value) external returns (bool);\\n\\n    /**\\n     * @dev Returns the remaining number of tokens that `spender` will be\\n     * allowed to spend on behalf of `owner` through {transferFrom}. This is\\n     * zero by default.\\n     *\\n     * This value changes when {approve} or {transferFrom} are called.\\n     */\\n    function allowance(address owner, address spender) external view returns (uint256);\\n\\n    /**\\n     * @dev Sets a `value` amount of tokens as the allowance of `spender` over the\\n     * caller's tokens.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * IMPORTANT: Beware that changing an allowance with this method brings the risk\\n     * that someone may use both the old and the new allowance by unfortunate\\n     * transaction ordering. One possible solution to mitigate this race\\n     * condition is to first reduce the spender's allowance to 0 and set the\\n     * desired value afterwards:\\n     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729\\n     *\\n     * Emits an {Approval} event.\\n     */\\n    function approve(address spender, uint256 value) external returns (bool);\\n\\n    /**\\n     * @dev Moves a `value` amount of tokens from `from` to `to` using the\\n     * allowance mechanism. `value` is then deducted from the caller's\\n     * allowance.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function transferFrom(address from, address to, uint256 value) external returns (bool);\\n}\\n\",\"keccak256\":\"0xc6a8ff0ea489379b61faa647490411b80102578440ab9d84e9a957cc12164e70\",\"license\":\"MIT\"},\"contracts/Crowdfunding.sol\":{\"content\":\"import \\\"@openzeppelin/contracts/token/ERC20/IERC20.sol\\\";\\n\\n//SPDX-License-Identifier: MIT\\npragma solidity >=0.8.0 <0.9.0;\\n\\n/**\\n * @title Crowdfunding\\n * @notice A crowdfunding contract that allows users to donate ERC20 tokens to reach a funding goal\\n * @dev This contract manages a time-bound crowdfunding campaign with withdrawal capabilities\\n */\\ncontract Crowdfunding {\\n    // CUSTOM ERRORS\\n    error ZeroAddress();\\n    error StartTimeInPast();\\n    error EndTimeBeforeStartTime();\\n    error ZeroGoal();\\n    error CampaignNotStarted();\\n    error CampaignEnded();\\n    error ZeroAmount();\\n    error GoalReached();\\n    error TransferFailed();\\n    error NoFundsToWithdraw();\\n    error OnlyCreator();\\n    error CampaignNotEndedOrGoalNotReached();\\n\\n    // EVENTS\\n    /**\\n     * @notice Emitted when a new donation is made\\n     * @param donor The address of the donor\\n     * @param amount The amount donated\\n     * @param totalDonations The total amount raised after this donation\\n     */\\n    event NewDonation(address indexed donor, uint256 amount, uint256 totalDonations);\\n    \\n    /**\\n     * @notice Emitted when a donor withdraws their funds\\n     * @param donor The address of the donor withdrawing\\n     * @param amount The amount withdrawn\\n     * @param totalDonations The total amount raised after withdrawal\\n     */\\n    event Withdrawal(address indexed donor, uint256 amount, uint256 totalDonations);\\n    \\n    /**\\n     * @notice Emitted when the creator withdraws the raised funds\\n     * @param amount The amount withdrawn by the creator\\n     */\\n    event CreatorWithdraw(uint256 amount);\\n\\n    // STORAGE VARIABLES\\n    /// @notice The timestamp when the campaign starts\\n    uint256 public startTime;\\n    \\n    /// @notice The timestamp when the campaign ends\\n    uint256 public endTime;\\n    \\n    /// @notice The total amount of money raised so far\\n    uint256 public moneyRaised;\\n    \\n    /// @notice The funding goal for the campaign\\n    uint256 public moneyGoal;\\n    \\n    /// @notice The address of the campaign creator\\n    address public creator;\\n    \\n    /// @notice The address of the ERC20 token used for donations\\n    address public tokenAddress;\\n    \\n    /// @notice Mapping of donor addresses to their donation amounts\\n    mapping(address => uint256) public donors;\\n\\n    /**\\n     * @notice Constructor to initialize the crowdfunding campaign\\n     * @param _creator The address of the campaign creator\\n     * @param _startTime The timestamp when the campaign starts\\n     * @param _endTime The timestamp when the campaign ends\\n     * @param _moneyGoal The funding goal for the campaign\\n     * @param _tokenAddress The address of the ERC20 token to be used\\n     */\\n    constructor(\\n        address _creator,\\n        uint256 _startTime,\\n        uint256 _endTime,\\n        uint256 _moneyGoal,\\n        address _tokenAddress\\n    ) {\\n        if (_creator == address(0)) revert ZeroAddress();\\n        if (_startTime <= block.timestamp) revert StartTimeInPast();\\n        if (_endTime <= _startTime) revert EndTimeBeforeStartTime();\\n        if (_moneyGoal == 0) revert ZeroGoal();\\n        if (_tokenAddress == address(0)) revert ZeroAddress();\\n        \\n        creator = _creator;\\n        tokenAddress = _tokenAddress;\\n        startTime = _startTime;\\n        endTime = _endTime;\\n        moneyGoal = _moneyGoal;\\n    }\\n\\n    /**\\n     * @notice Allows users to donate ERC20 tokens to the campaign\\n     * @param amount The amount of tokens to donate\\n     * @dev Requires the campaign to be active and not exceed the goal\\n     */\\n    function donate(uint256 amount) public {\\n        if (block.timestamp < startTime) revert CampaignNotStarted();\\n        if (block.timestamp >= endTime) revert CampaignEnded();\\n        if (amount == 0) revert ZeroAmount();\\n        if (moneyRaised + amount > moneyGoal) revert GoalReached();\\n\\n        moneyRaised += amount;\\n        donors[msg.sender] += amount;\\n\\n        if (!IERC20(tokenAddress).transferFrom(msg.sender, address(this), amount)) {\\n            revert TransferFailed();\\n        }\\n        \\n        emit NewDonation(msg.sender, amount, moneyRaised);\\n    }\\n\\n    /**\\n     * @notice Allows donors to withdraw their funds before the campaign ends\\n     * @dev Only callable by donors who have contributed and before campaign ends\\n     */\\n    function withdrawFunds() public {\\n        if (block.timestamp >= endTime) revert CampaignEnded();\\n        if (donors[msg.sender] == 0) revert NoFundsToWithdraw();\\n        \\n        uint256 amountToWithdraw = donors[msg.sender];\\n\\n        moneyRaised -= amountToWithdraw;\\n        donors[msg.sender] = 0;\\n\\n        if (!IERC20(tokenAddress).transfer(msg.sender, amountToWithdraw)) {\\n            revert TransferFailed();\\n        }\\n        \\n        emit Withdrawal(msg.sender, amountToWithdraw, moneyRaised);\\n    }\\n\\n    /**\\n     * @notice Allows the creator to withdraw all raised funds\\n     * @dev Only callable by creator after campaign ends or goal is reached\\n     */\\n    function creatorWithdraw() public {\\n        if (msg.sender != creator) revert OnlyCreator();\\n        if (block.timestamp < endTime && moneyRaised != moneyGoal) {\\n            revert CampaignNotEndedOrGoalNotReached();\\n        }\\n\\n        uint256 amountToWithdraw = moneyRaised;\\n        moneyRaised = 0;\\n\\n        if (!IERC20(tokenAddress).transfer(creator, amountToWithdraw)) {\\n            revert TransferFailed();\\n        }\\n        \\n        emit CreatorWithdraw(amountToWithdraw);\\n    }\\n\\n    /**\\n     * @notice Returns the remaining time until campaign ends\\n     * @return The number of seconds remaining, or 0 if campaign has ended\\n     */\\n    function getRemainingTime() public view returns (uint256) {\\n        if (block.timestamp >= endTime) {\\n            return 0;\\n        }\\n        return endTime - block.timestamp;\\n    }\\n\\n    /**\\n     * @notice Returns the remaining amount needed to reach the goal\\n     * @return The amount still needed to reach the funding goal\\n     */\\n    function getRemainingGoal() public view returns (uint256) {\\n        if (moneyRaised >= moneyGoal) {\\n            return 0;\\n        }\\n        return moneyGoal - moneyRaised;\\n    }\\n\\n    /**\\n     * @notice Checks if the campaign is currently active\\n     * @return True if the campaign is active, false otherwise\\n     */\\n    function isCampaignActive() public view returns (bool) {\\n        return block.timestamp >= startTime && block.timestamp < endTime;\\n    }\\n\\n    /**\\n     * @notice Checks if the funding goal has been reached\\n     * @return True if the goal has been reached, false otherwise\\n     */\\n    function isGoalReached() public view returns (bool) {\\n        return moneyRaised >= moneyGoal;\\n    }\\n}\\n\",\"keccak256\":\"0x09e0f67360ae4617b894d8fb66eba01b9680ce69b33a3e12c969e8bba2d1f249\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b506040516108f33803806108f383398101604081905261002f91610138565b6001600160a01b0385166100565760405163d92e233d60e01b815260040160405180910390fd5b428411610076576040516326e687eb60e01b815260040160405180910390fd5b83831161009657604051634313345360e01b815260040160405180910390fd5b816000036100b7576040516316f3c52960e01b815260040160405180910390fd5b6001600160a01b0381166100de5760405163d92e233d60e01b815260040160405180910390fd5b600480546001600160a01b039687166001600160a01b0319918216179091556005805492909616911617909355600091909155600155600355610188565b80516001600160a01b038116811461013357600080fd5b919050565b600080600080600060a0868803121561015057600080fd5b6101598661011c565b945060208601519350604086015192506060860151915061017c6080870161011c565b90509295509295909350565b61075c806101976000396000f3fe608060405234801561001057600080fd5b50600436106100ea5760003560e01c80639d76ea581161008c578063d3eb6f6111610066578063d3eb6f611461019e578063efb98bcf146101b7578063f14faf6f146101bf578063f387bcac146101d257600080fd5b80639d76ea5814610163578063ca0cdea814610176578063d01d426b1461019657600080fd5b80633197cbb6116100c85780633197cbb6146101405780634b0b945e1461014957806364ec8bdb1461015257806378e979251461015a57600080fd5b806302d05d3f146100ef57806324600fc31461011f5780632aa908ec14610129575b600080fd5b600454610102906001600160a01b031681565b6040516001600160a01b0390911681526020015b60405180910390f35b6101276101da565b005b61013260035481565b604051908152602001610116565b61013260015481565b61013260025481565b61012761033f565b61013260005481565b600554610102906001600160a01b031681565b610132610184366004610679565b60066020526000908152604090205481565b610132610476565b60035460025410155b6040519015158152602001610116565b61013261049e565b6101276101cd3660046106a9565b6104bd565b6101a7610662565b60015442106101fc5760405163154eb81560e21b815260040160405180910390fd5b33600090815260066020526040812054900361022b576040516367e3990d60e01b815260040160405180910390fd5b33600090815260066020526040812054600280549192839261024e9084906106d8565b90915550503360008181526006602052604080822091909155600554905163a9059cbb60e01b81526004810192909252602482018390526001600160a01b03169063a9059cbb906044016020604051808303816000875af11580156102b7573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906102db91906106f1565b6102f8576040516312171d8360e31b815260040160405180910390fd5b60025460405133917fdf273cb619d95419a9cd0ec88123a0538c85064229baa6363788f743fff90deb9161033491858252602082015260400190565b60405180910390a250565b6004546001600160a01b0316331461036a576040516308f78f9960e31b815260040160405180910390fd5b6001544210801561037f575060035460025414155b1561039d57604051631b9d32d760e21b815260040160405180910390fd5b6002805460009091556005546004805460405163a9059cbb60e01b81526001600160a01b0391821692810192909252602482018490529091169063a9059cbb906044016020604051808303816000875af11580156103ff573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061042391906106f1565b610440576040516312171d8360e31b815260040160405180910390fd5b6040518181527f4bc5d1019ebfeef89a9521dfa3efea48ef6d58f3b82ef81917ab77e67096feed9060200160405180910390a150565b6000600354600254106104895750600090565b60025460035461049991906106d8565b905090565b600060015442106104af5750600090565b4260015461049991906106d8565b6000544210156104e0576040516333f44d6160e01b815260040160405180910390fd5b60015442106105025760405163154eb81560e21b815260040160405180910390fd5b8060000361052357604051631f2a200560e01b815260040160405180910390fd5b600354816002546105349190610713565b11156105535760405163f30bb8af60e01b815260040160405180910390fd5b80600260008282546105659190610713565b90915550503360009081526006602052604081208054839290610589908490610713565b90915550506005546040516323b872dd60e01b8152336004820152306024820152604481018390526001600160a01b03909116906323b872dd906064016020604051808303816000875af11580156105e5573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061060991906106f1565b610626576040516312171d8360e31b815260040160405180910390fd5b60025460405133917f0d968ed0843603b466b27a4b0092affa11344caafe6d80e695c16ef623fd42bd9161033491858252602082015260400190565b600080544210158015610499575050600154421090565b60006020828403121561068b57600080fd5b81356001600160a01b03811681146106a257600080fd5b9392505050565b6000602082840312156106bb57600080fd5b5035919050565b634e487b7160e01b600052601160045260246000fd5b818103818111156106eb576106eb6106c2565b92915050565b60006020828403121561070357600080fd5b815180151581146106a257600080fd5b808201808211156106eb576106eb6106c256fea26469706673582212203e0a4ce784c08c910377848c26ec12994f38b89da5221e52b4594c9714a5644564736f6c63430008140033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100ea5760003560e01c80639d76ea581161008c578063d3eb6f6111610066578063d3eb6f611461019e578063efb98bcf146101b7578063f14faf6f146101bf578063f387bcac146101d257600080fd5b80639d76ea5814610163578063ca0cdea814610176578063d01d426b1461019657600080fd5b80633197cbb6116100c85780633197cbb6146101405780634b0b945e1461014957806364ec8bdb1461015257806378e979251461015a57600080fd5b806302d05d3f146100ef57806324600fc31461011f5780632aa908ec14610129575b600080fd5b600454610102906001600160a01b031681565b6040516001600160a01b0390911681526020015b60405180910390f35b6101276101da565b005b61013260035481565b604051908152602001610116565b61013260015481565b61013260025481565b61012761033f565b61013260005481565b600554610102906001600160a01b031681565b610132610184366004610679565b60066020526000908152604090205481565b610132610476565b60035460025410155b6040519015158152602001610116565b61013261049e565b6101276101cd3660046106a9565b6104bd565b6101a7610662565b60015442106101fc5760405163154eb81560e21b815260040160405180910390fd5b33600090815260066020526040812054900361022b576040516367e3990d60e01b815260040160405180910390fd5b33600090815260066020526040812054600280549192839261024e9084906106d8565b90915550503360008181526006602052604080822091909155600554905163a9059cbb60e01b81526004810192909252602482018390526001600160a01b03169063a9059cbb906044016020604051808303816000875af11580156102b7573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906102db91906106f1565b6102f8576040516312171d8360e31b815260040160405180910390fd5b60025460405133917fdf273cb619d95419a9cd0ec88123a0538c85064229baa6363788f743fff90deb9161033491858252602082015260400190565b60405180910390a250565b6004546001600160a01b0316331461036a576040516308f78f9960e31b815260040160405180910390fd5b6001544210801561037f575060035460025414155b1561039d57604051631b9d32d760e21b815260040160405180910390fd5b6002805460009091556005546004805460405163a9059cbb60e01b81526001600160a01b0391821692810192909252602482018490529091169063a9059cbb906044016020604051808303816000875af11580156103ff573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061042391906106f1565b610440576040516312171d8360e31b815260040160405180910390fd5b6040518181527f4bc5d1019ebfeef89a9521dfa3efea48ef6d58f3b82ef81917ab77e67096feed9060200160405180910390a150565b6000600354600254106104895750600090565b60025460035461049991906106d8565b905090565b600060015442106104af5750600090565b4260015461049991906106d8565b6000544210156104e0576040516333f44d6160e01b815260040160405180910390fd5b60015442106105025760405163154eb81560e21b815260040160405180910390fd5b8060000361052357604051631f2a200560e01b815260040160405180910390fd5b600354816002546105349190610713565b11156105535760405163f30bb8af60e01b815260040160405180910390fd5b80600260008282546105659190610713565b90915550503360009081526006602052604081208054839290610589908490610713565b90915550506005546040516323b872dd60e01b8152336004820152306024820152604481018390526001600160a01b03909116906323b872dd906064016020604051808303816000875af11580156105e5573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061060991906106f1565b610626576040516312171d8360e31b815260040160405180910390fd5b60025460405133917f0d968ed0843603b466b27a4b0092affa11344caafe6d80e695c16ef623fd42bd9161033491858252602082015260400190565b600080544210158015610499575050600154421090565b60006020828403121561068b57600080fd5b81356001600160a01b03811681146106a257600080fd5b9392505050565b6000602082840312156106bb57600080fd5b5035919050565b634e487b7160e01b600052601160045260246000fd5b818103818111156106eb576106eb6106c2565b92915050565b60006020828403121561070357600080fd5b815180151581146106a257600080fd5b808201808211156106eb576106eb6106c256fea26469706673582212203e0a4ce784c08c910377848c26ec12994f38b89da5221e52b4594c9714a5644564736f6c63430008140033",
+  "devdoc": {
+    "details": "This contract manages a time-bound crowdfunding campaign with withdrawal capabilities",
+    "events": {
+      "CreatorWithdraw(uint256)": {
+        "params": {
+          "amount": "The amount withdrawn by the creator"
+        }
+      },
+      "NewDonation(address,uint256,uint256)": {
+        "params": {
+          "amount": "The amount donated",
+          "donor": "The address of the donor",
+          "totalDonations": "The total amount raised after this donation"
+        }
+      },
+      "Withdrawal(address,uint256,uint256)": {
+        "params": {
+          "amount": "The amount withdrawn",
+          "donor": "The address of the donor withdrawing",
+          "totalDonations": "The total amount raised after withdrawal"
+        }
+      }
+    },
+    "kind": "dev",
+    "methods": {
+      "constructor": {
+        "params": {
+          "_creator": "The address of the campaign creator",
+          "_endTime": "The timestamp when the campaign ends",
+          "_moneyGoal": "The funding goal for the campaign",
+          "_startTime": "The timestamp when the campaign starts",
+          "_tokenAddress": "The address of the ERC20 token to be used"
+        }
+      },
+      "creatorWithdraw()": {
+        "details": "Only callable by creator after campaign ends or goal is reached"
+      },
+      "donate(uint256)": {
+        "details": "Requires the campaign to be active and not exceed the goal",
+        "params": {
+          "amount": "The amount of tokens to donate"
+        }
+      },
+      "getRemainingGoal()": {
+        "returns": {
+          "_0": "The amount still needed to reach the funding goal"
+        }
+      },
+      "getRemainingTime()": {
+        "returns": {
+          "_0": "The number of seconds remaining, or 0 if campaign has ended"
+        }
+      },
+      "isCampaignActive()": {
+        "returns": {
+          "_0": "True if the campaign is active, false otherwise"
+        }
+      },
+      "isGoalReached()": {
+        "returns": {
+          "_0": "True if the goal has been reached, false otherwise"
+        }
+      },
+      "withdrawFunds()": {
+        "details": "Only callable by donors who have contributed and before campaign ends"
+      }
+    },
+    "title": "Crowdfunding",
+    "version": 1
+  },
+  "userdoc": {
+    "events": {
+      "CreatorWithdraw(uint256)": {
+        "notice": "Emitted when the creator withdraws the raised funds"
+      },
+      "NewDonation(address,uint256,uint256)": {
+        "notice": "Emitted when a new donation is made"
+      },
+      "Withdrawal(address,uint256,uint256)": {
+        "notice": "Emitted when a donor withdraws their funds"
+      }
+    },
+    "kind": "user",
+    "methods": {
+      "constructor": {
+        "notice": "Constructor to initialize the crowdfunding campaign"
+      },
+      "creator()": {
+        "notice": "The address of the campaign creator"
+      },
+      "creatorWithdraw()": {
+        "notice": "Allows the creator to withdraw all raised funds"
+      },
+      "donate(uint256)": {
+        "notice": "Allows users to donate ERC20 tokens to the campaign"
+      },
+      "donors(address)": {
+        "notice": "Mapping of donor addresses to their donation amounts"
+      },
+      "endTime()": {
+        "notice": "The timestamp when the campaign ends"
+      },
+      "getRemainingGoal()": {
+        "notice": "Returns the remaining amount needed to reach the goal"
+      },
+      "getRemainingTime()": {
+        "notice": "Returns the remaining time until campaign ends"
+      },
+      "isCampaignActive()": {
+        "notice": "Checks if the campaign is currently active"
+      },
+      "isGoalReached()": {
+        "notice": "Checks if the funding goal has been reached"
+      },
+      "moneyGoal()": {
+        "notice": "The funding goal for the campaign"
+      },
+      "moneyRaised()": {
+        "notice": "The total amount of money raised so far"
+      },
+      "startTime()": {
+        "notice": "The timestamp when the campaign starts"
+      },
+      "tokenAddress()": {
+        "notice": "The address of the ERC20 token used for donations"
+      },
+      "withdrawFunds()": {
+        "notice": "Allows donors to withdraw their funds before the campaign ends"
+      }
+    },
+    "notice": "A crowdfunding contract that allows users to donate ERC20 tokens to reach a funding goal",
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 131,
+        "contract": "contracts/Crowdfunding.sol:Crowdfunding",
+        "label": "startTime",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 134,
+        "contract": "contracts/Crowdfunding.sol:Crowdfunding",
+        "label": "endTime",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 137,
+        "contract": "contracts/Crowdfunding.sol:Crowdfunding",
+        "label": "moneyRaised",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 140,
+        "contract": "contracts/Crowdfunding.sol:Crowdfunding",
+        "label": "moneyGoal",
+        "offset": 0,
+        "slot": "3",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 143,
+        "contract": "contracts/Crowdfunding.sol:Crowdfunding",
+        "label": "creator",
+        "offset": 0,
+        "slot": "4",
+        "type": "t_address"
+      },
+      {
+        "astId": 146,
+        "contract": "contracts/Crowdfunding.sol:Crowdfunding",
+        "label": "tokenAddress",
+        "offset": 0,
+        "slot": "5",
+        "type": "t_address"
+      },
+      {
+        "astId": 151,
+        "contract": "contracts/Crowdfunding.sol:Crowdfunding",
+        "label": "donors",
+        "offset": 0,
+        "slot": "6",
+        "type": "t_mapping(t_address,t_uint256)"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_mapping(t_address,t_uint256)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => uint256)",
+        "numberOfBytes": "32",
+        "value": "t_uint256"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}
