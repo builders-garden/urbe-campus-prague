@@ -1,25 +1,49 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import type { NextPage } from "next";
+import { parseUnits } from "viem";
 import { useAccount } from "wagmi";
 import { BugAntIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { Address } from "~~/components/scaffold-eth";
-import { useScaffoldWatchContractEvent } from "~~/hooks/scaffold-eth";
+import { InputBase } from "~~/components/scaffold-eth";
+import {
+  useDeployedContractInfo,
+  useScaffoldReadContract,
+  useScaffoldWatchContractEvent,
+  useScaffoldWriteContract,
+} from "~~/hooks/scaffold-eth";
 
 const Home: NextPage = () => {
   const { address: connectedAddress } = useAccount();
+  const [amount, setAmount] = useState("");
+
+  /** Get contract info */
+  const { data: crowdfundingContract } = useDeployedContractInfo({
+    contractName: "Crowdfunding",
+  });
 
   /** Read Contract */
   // const { data } = useScaffoldReadContract({
   //   contractName: "Crowdfunding",
   //   functionName: "startTime",
   // })
+  const { data: decimals } = useScaffoldReadContract({
+    contractName: "FakeUSDC",
+    functionName: "decimals",
+  });
+  const { data: allowance } = useScaffoldReadContract({
+    contractName: "FakeUSDC",
+    functionName: "allowance",
+    args: [connectedAddress, crowdfundingContract?.address],
+  });
 
   /** Write Contract */
-  // const { writeContractAsync } = useScaffoldWriteContract(
-  //   { contractName: "Crowdfunding" }
-  // );
+  const { writeContractAsync } = useScaffoldWriteContract({ contractName: "Crowdfunding" });
+  const { writeContractAsync: writeFakeUSDCContractAsync } = useScaffoldWriteContract({
+    contractName: "FakeUSDC",
+  });
   // await writeContractAsync({
   //   functionName: "donate",
   //   args: [1000000000000000000n],
@@ -41,6 +65,42 @@ const Home: NextPage = () => {
     },
   });
 
+  /** Retrieve history of events */
+  // const { data: events } = useScaffoldEventHistory({
+  //   contractName: "Crowdfunding",
+  //   eventName: "NewDonation",
+  //   fromBlock: 124124123n,
+  //   filters: {
+  //     donor: connectedAddress,
+  //   },
+  //   blockData: true,
+  //   transactionData: true,
+  //   receiptData: true,
+  // });
+
+  const donate = async () => {
+    if (!decimals || allowance === undefined) return;
+    // Step 1: Convert the amount to the correct decimals
+    const parsedAmount = parseUnits(amount, decimals);
+
+    // Step 2: Check the allowance
+    console.log("ALLOWANCE", allowance);
+
+    // Step 3: Approve the contract to spend the tokens if allowance < amount to spend
+    if (allowance < parsedAmount) {
+      await writeFakeUSDCContractAsync({
+        functionName: "approve",
+        args: [crowdfundingContract?.address, parsedAmount],
+      });
+    }
+
+    // Step 4: Call the donate function
+    await writeContractAsync({
+      functionName: "donate",
+      args: [parsedAmount],
+    });
+  };
+
   return (
     <>
       <div className="flex items-center flex-col grow pt-10">
@@ -52,6 +112,10 @@ const Home: NextPage = () => {
           <div className="flex justify-center items-center space-x-2 flex-col">
             <p className="my-2 font-medium">Connected Address:</p>
             <Address address={connectedAddress} />
+            <InputBase onChange={setAmount} value={amount} placeholder="Amount" />
+            <button className="btn btn-sm" onClick={() => donate()}>
+              Donate
+            </button>
           </div>
 
           <p className="text-center text-lg">
