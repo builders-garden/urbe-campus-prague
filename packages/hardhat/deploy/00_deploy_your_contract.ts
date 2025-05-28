@@ -8,32 +8,21 @@ import { DeployFunction } from "hardhat-deploy/types";
  * @param hre HardhatRuntimeEnvironment object.
  */
 const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
-  /*
-    On localhost, the deployer account is the one that comes with Hardhat, which is already funded.
-
-    When deploying to live networks (e.g `yarn deploy --network sepolia`), the deployer account
-    should have sufficient balance to pay for the gas fees for contract creation.
-
-    You can generate a random account with `yarn generate` or `yarn account:import` to import your
-    existing PK which will fill DEPLOYER_PRIVATE_KEY_ENCRYPTED in the .env file (then used on hardhat.config.ts)
-    You can run the `yarn account` command to check your balance in every network.
-  */
   const { deployer } = await hre.getNamedAccounts();
   const { deploy } = hre.deployments;
 
-  const creator = "0xfAd3792af909D54927832116101fA909059C680b";
+  const fakeUSDC = await deploy("FakeUSDC", { from: deployer, log: true, autoMine: true });
+
+  const creator = "0xA9bC8A58B39935BA3D8D1Ce4b0d3383153F184E1";
   const startTime = 1748457700;
   const endTime = 1751136100;
   const moneyGoal = 100000000;
-  const tokenAddress = "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238";
 
   await deploy("Crowdfunding", {
     from: deployer,
     // Contract constructor arguments
-    args: [creator, startTime, endTime, moneyGoal, tokenAddress],
+    args: [creator, startTime, endTime, moneyGoal, fakeUSDC.address],
     log: true,
-    // autoMine: can be passed to the deploy function to make the deployment process faster on local networks by
-    // automatically mining the contract deployment transaction. There is no effect on live networks.
     autoMine: true,
   });
 };
