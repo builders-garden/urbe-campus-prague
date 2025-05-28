@@ -80,25 +80,31 @@ const Home: NextPage = () => {
 
   const donate = async () => {
     if (!decimals || allowance === undefined) return;
+    console.log("AMOUNT", amount);
     // Step 1: Convert the amount to the correct decimals
     const parsedAmount = parseUnits(amount, decimals);
+    console.log("PARSED AMOUNT", parsedAmount);
 
     // Step 2: Check the allowance
     console.log("ALLOWANCE", allowance);
 
     // Step 3: Approve the contract to spend the tokens if allowance < amount to spend
     if (allowance < parsedAmount) {
+      console.log("APPROVING");
       await writeFakeUSDCContractAsync({
         functionName: "approve",
         args: [crowdfundingContract?.address, parsedAmount],
       });
+      console.log("APPROVED");
     }
 
     // Step 4: Call the donate function
+    console.log("DONATING");
     await writeContractAsync({
       functionName: "donate",
       args: [parsedAmount],
     });
+    console.log("DONATED");
   };
 
   return (

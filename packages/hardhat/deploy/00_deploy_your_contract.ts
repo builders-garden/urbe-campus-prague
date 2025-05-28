@@ -14,9 +14,9 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   const fakeUSDC = await deploy("FakeUSDC", { from: deployer, log: true, autoMine: true });
 
   const creator = "0xA9bC8A58B39935BA3D8D1Ce4b0d3383153F184E1";
-  const startTime = 1748457700;
+  const startTime = 1748425509;
   const endTime = 1751136100;
-  const moneyGoal = 100000000;
+  const moneyGoal = 1000000000000000000000n;
 
   await deploy("Crowdfunding", {
     from: deployer,
