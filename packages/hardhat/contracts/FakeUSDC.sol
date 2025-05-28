@@ -8,6 +8,10 @@ contract FakeUSDC is ERC20 {
         _mint(msg.sender, 1000000000000000000000000);
     }
 
+    /* This is a fake USDC contract for testing purposes
+     * Do not use this contract in production.
+     * Do not replicate this function in production.
+     */
     function mint(address to, uint256 amount) public {
         _mint(to, amount);
     }
