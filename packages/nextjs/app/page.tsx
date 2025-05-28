@@ -5,9 +5,41 @@ import type { NextPage } from "next";
 import { useAccount } from "wagmi";
 import { BugAntIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { Address } from "~~/components/scaffold-eth";
+import { useScaffoldWatchContractEvent } from "~~/hooks/scaffold-eth";
 
 const Home: NextPage = () => {
   const { address: connectedAddress } = useAccount();
+
+  /** Read Contract */
+  // const { data } = useScaffoldReadContract({
+  //   contractName: "Crowdfunding",
+  //   functionName: "startTime",
+  // })
+
+  /** Write Contract */
+  // const { writeContractAsync } = useScaffoldWriteContract(
+  //   { contractName: "Crowdfunding" }
+  // );
+  // await writeContractAsync({
+  //   functionName: "donate",
+  //   args: [1000000000000000000n],
+  // })
+
+  /** Watch Contract Event */
+  useScaffoldWatchContractEvent({
+    contractName: "Crowdfunding",
+    eventName: "NewDonation",
+    onLogs: logs => {
+      logs.map(log => {
+        const { donor, amount, totalDonations } = log.args;
+        console.log("NewDonation", {
+          donor,
+          amount,
+          totalDonations,
+        });
+      });
+    },
+  });
 
   return (
     <>
